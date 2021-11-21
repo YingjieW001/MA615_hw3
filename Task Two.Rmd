@@ -1,0 +1,39 @@
+---
+title: "Task2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# install.packages("devtools")
+library(devtools)
+#install_github("ropensci")
+library(rnoaa)
+```
+
+```{r}
+data_42020 <- read.table("https://www.ndbc.noaa.gov/view_text_file.php?filename=42020h2017.txt.gz&dir=data/historical/stdmet/")
+```
+
+```{r}
+head(data_42020)
+```
+```{r}
+data_42020_date = paste(data_42020[,1],"-",data_42020[,2],"-",data_42020[,3]," ",data_42020[,4],":",data_42020[,5],":","00",sep = " ")
+head(data_42020_date)
+```
+
+```{r}
+#require(lubridate)
+library(lubridate)
+data_42020_date = ymd_hms(data_42020_date, tz="UTC")
+head(data_42020_date)
+```
+
+```{r}
+
+```
+
