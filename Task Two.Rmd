@@ -8,32 +8,150 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-# install.packages("devtools")
 library(devtools)
-#install_github("ropensci")
 library(rnoaa)
-```
-
-```{r}
-data_42020 <- read.table("https://www.ndbc.noaa.gov/view_text_file.php?filename=42020h2017.txt.gz&dir=data/historical/stdmet/")
-```
-
-```{r}
-head(data_42020)
-```
-```{r}
-data_42020_date = paste(data_42020[,1],"-",data_42020[,2],"-",data_42020[,3]," ",data_42020[,4],":",data_42020[,5],":","00",sep = " ")
-head(data_42020_date)
-```
-
-```{r}
-#require(lubridate)
 library(lubridate)
+```
+
+## Station 42020
+
+```{r}
+data_42020_whole <- read.table("buoy_data/42020h2017.txt")
+
+data_42020 = data_42020_whole[which((data_42020_whole[2]==8 & data_42020_whole[3]>13)|(data_42020_whole[2]==9 & data_42020_whole[3]<5)),]
+
+data_42020_date = paste(data_42020[,1],"-",data_42020[,2],"-",data_42020[,3]," ",data_42020[,4],":",data_42020[,5],":","00",sep = " ")
 data_42020_date = ymd_hms(data_42020_date, tz="UTC")
-head(data_42020_date)
+```
+
+
+```{r}
+data_42020_atmp = data_42020[,14]
+data_42020_wvht = data_42020[,9]
+data_42020_atmp = replace(data_42020_atmp, data_42020_atmp==999, NA)
+data_42020_wvht = replace(data_42020_wvht, data_42020_wvht==999, NA)
+```
+
+## Station 42019
+
+```{r}
+data_42019_whole <- read.table("buoy_data/42019h2017.txt")
+
+data_42019 = data_42019_whole[which((data_42019_whole[2]==8 & data_42019_whole[3]>13)|(data_42019_whole[2]==9 & data_42019_whole[3]<5)),]
+
+data_42019_date = paste(data_42019[,1],"-",data_42019[,2],"-",data_42019[,3]," ",data_42019[,4],":",data_42019[,5],":","00",sep = " ")
+data_42019_date = ymd_hms(data_42019_date, tz="UTC")
+```
+
+
+```{r}
+data_42019_atmp = data_42019[,14]
+data_42019_wvht = data_42019[,9]
+data_42019_atmp = replace(data_42019_atmp, data_42019_atmp==999, NA)
+data_42019_wvht = replace(data_42019_wvht, data_42019_wvht==999, NA)
+```
+
+
+## Station 42035
+
+```{r}
+data_42035_whole <- read.table("buoy_data/42035h2017.txt")
+
+data_42035 = data_42035_whole[which((data_42035_whole[2]==8 & data_42035_whole[3]>13)|(data_42035_whole[2]==9 & data_42035_whole[3]<5)),]
+
+data_42035_date = paste(data_42035[,1],"-",data_42035[,2],"-",data_42035[,3]," ",data_42035[,4],":",data_42035[,5],":","00",sep = " ")
+data_42035_date = ymd_hms(data_42035_date, tz="UTC")
+```
+
+
+```{r}
+data_42035_atmp = data_42035[,14]
+data_42035_wvht = data_42035[,9]
+data_42035_atmp = replace(data_42035_atmp, data_42035_atmp==999, NA)
+data_42035_wvht = replace(data_42035_wvht, data_42035_wvht==999, NA)
+```
+
+
+## Station 42044
+
+```{r}
+data_42044_whole <- read.table("buoy_data/42044h2017.txt")
+
+data_42044 = data_42044_whole[which((data_42044_whole[2]==8 & data_42044_whole[3]>13)|(data_42044_whole[2]==9 & data_42044_whole[3]<5)),]
+
+data_42044_date = paste(data_42044[,1],"-",data_42044[,2],"-",data_42044[,3]," ",data_42044[,4],":",data_42044[,5],":","00",sep = " ")
+data_42044_date = ymd_hms(data_42044_date, tz="UTC")
+```
+
+
+```{r}
+data_42044_atmp = data_42044[,14]
+data_42044_wvht = data_42044[,9]
+data_42044_atmp = replace(data_42044_atmp, data_42044_atmp==999, NA)
+data_42044_wvht = replace(data_42044_wvht, data_42044_wvht==999, NA)
+```
+
+## Station 42045
+
+```{r}
+data_42045_whole <- read.table("buoy_data/42045h2017.txt")
+
+data_42045 = data_42045_whole[which((data_42045_whole[2]==8 & data_42045_whole[3]>13)|(data_42045_whole[2]==9 & data_42045_whole[3]<5)),]
+
+data_42045_date = paste(data_42045[,1],"-",data_42045[,2],"-",data_42045[,3]," ",data_42045[,4],":",data_42045[,5],":","00",sep = " ")
+data_42045_date = ymd_hms(data_42045_date, tz="UTC")
+```
+
+
+```{r}
+data_42045_atmp = data_42045[,14]
+data_42045_wvht = data_42045[,9]
+data_42045_atmp = replace(data_42045_atmp, data_42045_atmp==999, NA)
+data_42045_wvht = replace(data_42045_wvht, data_42045_wvht==999, NA)
+```
+
+
+## Plot Air Temperature
+
+
+```{r}
+plot(data_42020_date, data_42020_atmp, type='l', xlab = "Data", ylab = "Air Temperature", main = "Air Temperature During Harvey-2017 (Station 42020)")
+```
+```{r}
+plot(data_42019_date, data_42019_atmp, type='l', xlab = "Data", ylab = "Air Temperature", main = "Air Temperature During Harvey-2017 (Station 42019)")
 ```
 
 ```{r}
+plot(data_42035_date, data_42035_atmp, type='l', xlab = "Data", ylab = "Air Temperature", main = "Air Temperature During Harvey-2017 (Station 42035)")
+```
 
+```{r}
+plot(data_42044_date, data_42044_atmp, type='l', xlab = "Data", ylab = "Air Temperature", main = "Air Temperature During Harvey-2017 (Station 42044)")
+```
+
+```{r}
+plot(data_42045_date, data_42045_atmp, type='l', xlab = "Data", ylab = "Air Temperature", main = "Air Temperature During Harvey-2017 (Station 42045)")
+```
+
+## Wave Height
+
+```{r}
+plot(data_42020_date, data_42020_wvht, type='l', xlab = "Data", ylab = "Wave Height", main = "Wave Height During Harvey-2017 (Station 42020)")
+```
+
+```{r}
+plot(data_42019_date, data_42019_wvht, type='l', xlab = "Data", ylab = "Wave Height", main = "Wave Height During Harvey-2017 (Station 42019)")
+```
+
+```{r}
+plot(data_42035_date, data_42035_wvht, type='l', xlab = "Data", ylab = "Wave Height", main = "Wave Height During Harvey-2017 (Station 42035)")
+```
+
+```{r}
+plot(data_42044_date, data_42044_wvht, type='l', xlab = "Data", ylab = "Wave Height", main = "Wave Height During Harvey-2017 (Station 42044)")
+```
+
+```{r}
+plot(data_42045_date, data_42045_wvht, type='l', xlab = "Data", ylab = "Wave Height", main = "Wave Height During Harvey-2017 (Station 42045)")
 ```
 
