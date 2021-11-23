@@ -1,10 +1,7 @@
-install.packages("drat")
-addRepo("geanders")
-install.packages("hurricaneexposuredata")
-install.packages("hurricaneexposure")
 library(drat)
 library(hurricaneexposuredata)
 library(hurricaneexposure)
+addRepo("geanders")
 
 data("hurr_tracks")
 head(hurr_tracks)

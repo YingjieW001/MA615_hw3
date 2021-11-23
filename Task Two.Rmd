@@ -32,6 +32,7 @@ data_42020_atmp = replace(data_42020_atmp, data_42020_atmp==999, NA)
 data_42020_wvht = replace(data_42020_wvht, data_42020_wvht==999, NA)
 ```
 
+
 ## Station 42019
 
 ```{r}
@@ -111,6 +112,34 @@ data_42045_wvht = replace(data_42045_wvht, data_42045_wvht==999, NA)
 ```
 
 
+## Store Data
+
+```{r}
+#write.csv(data_42020_date, "processed_data/data_42020_date.csv")
+#write.csv(data_42020_atmp, "processed_data/data_42020_atmp.csv")
+#write.csv(data_42020_wvht, "processed_data/data_42020_wvht.csv")
+
+#write.csv(data_42019_date, "processed_data/data_42019_date.csv")
+#write.csv(data_42019_atmp, "processed_data/data_42019_atmp.csv")
+#write.csv(data_42019_wvht, "processed_data/data_42019_wvht.csv")
+
+#write.csv(data_42035_date, "processed_data/data_42035_date.csv")
+#write.csv(data_42035_atmp, "processed_data/data_42035_atmp.csv")
+#write.csv(data_42035_wvht, "processed_data/data_42035_wvht.csv")
+
+#write.csv(data_42044_date, "processed_data/data_42044_date.csv")
+#write.csv(data_42044_atmp, "processed_data/data_42044_atmp.csv")
+#write.csv(data_42044_wvht, "processed_data/data_42044_wvht.csv")
+
+#write.csv(data_42045_date, "processed_data/data_42045_date.csv")
+#write.csv(data_42045_atmp, "processed_data/data_42045_atmp.csv")
+#write.csv(data_42045_wvht, "processed_data/data_42045_wvht.csv")
+```
+
+
+
+
+
 ## Plot Air Temperature
 
 
@@ -154,4 +183,5 @@ plot(data_42044_date, data_42044_wvht, type='l', xlab = "Data", ylab = "Wave Hei
 ```{r}
 plot(data_42045_date, data_42045_wvht, type='l', xlab = "Data", ylab = "Wave Height", main = "Wave Height During Harvey-2017 (Station 42045)")
 ```
+
 

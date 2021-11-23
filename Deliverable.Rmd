@@ -1,0 +1,172 @@
+---
+title: "Hurricane Landfall Analysis"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+#options(warn=-1)
+```
+
+## Selected Hurricane:
+
+In this assignment, our group selected hurricane with ID: "Harvey-2017".
+
+
+## Selected Deliverable Format:
+
+For this assignment, we selected an document for the deliverable format, since an document is good for record purposes and is each to read.
+
+
+## Task One:
+
+For analyzing this hurricane dataset, we draw a series of maps for different purposes using "hurricaneexposure" package in R.
+
+First, we draw a map to show the track of the hurricane:
+
+
+```{r, echo=FALSE, warning=FALSE}
+source("Task One.R")
+```
+
+```{r, echo=FALSE, warning=FALSE}
+map_tracks(storms = "Harvey-2017")+
+  ggplot2::ggtitle("Track of Hurricane Harvey(2017)")
+```
+
+As the red line shown on the map, Hurricane Harvey was landfall on Texas and Louisiana, then head towards the middle of the United States.
+
+Then we plotted the closest distance between the storm and each county. Counties with darker colors are closer to the center of the hurricane:
+
+```{r}
+map_counties(storm = "Harvey-2017", metric = "distance")+
+  ggplot2::ggtitle("County-level Distance from the Track of Harvey(2017)")
+```
+
+The third map shown below plots the wind speed during the storm to each county. The hurricane logged in from Texas, where counties experienced the fastest wind speeds, followed by Louisiana. When the hurricane goes to the middle, the wind speed is not fast.
+
+```{r}
+map_counties(storm="Harvey-2017",metric="wind")+
+  ggplot2::ggtitle("Wind Speed during Hurricane Harvey(2017)")
+```
+
+Next we drawn the counties where the hurricane wind speed exceeds 20m/s as follows. Painted counties are mostly concentrated in Texas, so the disasters and losses caused there are the most serious.
+
+```{r}
+map_wind_exposure(storm = "Harvey-2017", wind_limit = 20)+
+  ggplot2::ggtitle("Counties Sustained Winds of 20m/s or Higher")
+```
+
+Our last map shown below plots counties for which a flood event was listed for Harvey(2017). Many areas in eastern Texas received large rainfall, causing unprecedented flooding. 
+
+```{r}
+map_event_exposure(storm = "Harvey-2017", event_type = "flood")+
+  ggplot2::ggtitle("Counties that Flooded in Harvey(2017)")
+```
+
+## Task Two:
+
+In task two, we coorperated NOAA buoy data for analyzing selected hurricane "Harvey-2017". In this hurricane's report in NOAA website, "AL092017_Harvey.pdf", which could be found in our github repo, 5 NOAA buoys are included: Station 42020, 42019, 42035, 42044 and 42045. These stations historical data dring year 2017 are put in the folder "buoy_data" which could be found in our github repo.
+
+From the NOAA report about this hurricane, this hurricane happened during 08/17 to 09/01. We selected the data during 08/14 and 09/04, which adds three days both at the begining and in the end.
+
+Two properties, air temperature and wave height, are analyzed during the selected period for the five related NOAA buoys:
+
+### 1. Air Temperature
+
+```{r}
+data_42020_date = read.csv("processed_data/data_42020_date.csv")
+data_42020_atmp = read.csv("processed_data/data_42020_atmp.csv")
+data_42020_wvht = read.csv("processed_data/data_42020_wvht.csv")
+
+data_42019_date = read.csv("processed_data/data_42019_date.csv")
+data_42019_atmp = read.csv("processed_data/data_42019_atmp.csv")
+data_42019_wvht = read.csv("processed_data/data_42019_wvht.csv")
+
+data_42035_date = read.csv("processed_data/data_42035_date.csv")
+data_42035_atmp = read.csv("processed_data/data_42035_atmp.csv")
+data_42035_wvht = read.csv("processed_data/data_42035_wvht.csv")
+
+data_42044_date = read.csv("processed_data/data_42044_date.csv")
+data_42044_atmp = read.csv("processed_data/data_42044_atmp.csv")
+data_42044_wvht = read.csv("processed_data/data_42044_wvht.csv")
+
+data_42045_date = read.csv("processed_data/data_42045_date.csv")
+data_42045_atmp = read.csv("processed_data/data_42045_atmp.csv")
+data_42045_wvht = read.csv("processed_data/data_42045_wvht.csv")
+```
+
+```{r, echo=FALSE, message=FALSE}
+library(lubridate)
+data_42020_date <- data_42020_date[,2]
+data_42020_atmp <- data_42020_atmp[,2]
+data_42020_wvht <- data_42020_wvht[,2]
+data_42020_date = ymd_hms(data_42020_date, tz="UTC")
+
+data_42019_date <- data_42019_date[,2]
+data_42019_atmp <- data_42019_atmp[,2]
+data_42019_wvht <- data_42019_wvht[,2]
+data_42019_date = ymd_hms(data_42019_date, tz="UTC")
+
+data_42035_date <- data_42035_date[,2]
+data_42035_atmp <- data_42035_atmp[,2]
+data_42035_wvht <- data_42035_wvht[,2]
+data_42035_date = ymd_hms(data_42035_date, tz="UTC")
+
+data_42044_date <- data_42044_date[,2]
+data_42044_atmp <- data_42044_atmp[,2]
+data_42044_wvht <- data_42044_wvht[,2]
+data_42044_date = ymd_hms(data_42044_date, tz="UTC")
+
+data_42045_date <- data_42045_date[,2]
+data_42045_atmp <- data_42045_atmp[,2]
+data_42045_wvht <- data_42045_wvht[,2]
+data_42045_date = ymd_hms(data_42045_date, tz="UTC")
+```
+
+
+```{r}
+plot(data_42020_date, data_42020_atmp, type='l', xlab = "Data", ylab = "Air Temperature", main = "Air Temperature During Harvey-2017 (Station 42020)")
+```
+
+```{r}
+plot(data_42019_date, data_42019_atmp, type='l', xlab = "Data", ylab = "Air Temperature", main = "Air Temperature During Harvey-2017 (Station 42019)")
+```
+
+```{r}
+plot(data_42035_date, data_42035_atmp, type='l', xlab = "Data", ylab = "Air Temperature", main = "Air Temperature During Harvey-2017 (Station 42035)")
+```
+
+```{r}
+plot(data_42044_date, data_42044_atmp, type='l', xlab = "Data", ylab = "Air Temperature", main = "Air Temperature During Harvey-2017 (Station 42044)")
+```
+
+```{r}
+plot(data_42045_date, data_42045_atmp, type='l', xlab = "Data", ylab = "Air Temperature", main = "Air Temperature During Harvey-2017 (Station 42045)")
+```
+
+### 1. Wave Height
+
+```{r}
+plot(data_42020_date, data_42020_wvht, type='l', xlab = "Data", ylab = "Wave Height", main = "Wave Height During Harvey-2017 (Station 42020)")
+```
+
+```{r}
+plot(data_42019_date, data_42019_wvht, type='l', xlab = "Data", ylab = "Wave Height", main = "Wave Height During Harvey-2017 (Station 42019)")
+```
+
+```{r}
+plot(data_42035_date, data_42035_wvht, type='l', xlab = "Data", ylab = "Wave Height", main = "Wave Height During Harvey-2017 (Station 42035)")
+```
+
+```{r}
+plot(data_42044_date, data_42044_wvht, type='l', xlab = "Data", ylab = "Wave Height", main = "Wave Height During Harvey-2017 (Station 42044)")
+```
+
+```{r}
+plot(data_42045_date, data_42045_wvht, type='l', xlab = "Data", ylab = "Wave Height", main = "Wave Height During Harvey-2017 (Station 42045)")
+```
+
+### 3. Discussion
+
+From the above plots, we noticed that there are missing values from some buoy data. For example, the latter part of air temperature data of station 42044, most of air temperature data of station 42045 and all wave height data of both station 42044 and 42045. This fact may be caused by losing data records.
